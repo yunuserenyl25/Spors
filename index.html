@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habit King • Disiplin Stüdyosu</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#10b981">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="app-header glass-card">
+    <div class="user-info">
+      <h1 id="user-heading">Kral'ın Disiplin Merkezi</h1>
+      <p class="streak-badge">🔥 Toplam Seri: <span id="total-streak">0</span> Gün</p>
+    </div>
+    <button id="open-add-modal" class="primary-btn">+ Yeni Alışkanlık</button>
+  </header>
+
+  <!-- İlerleme Özeti Barı -->
+  <section class="progress-section glass-card">
+    <div class="progress-info">
+      <span>Bugünkü Tamamlanma Oranı</span>
+      <strong id="progress-percent">%0</strong>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="daily-progress-fill"></div>
+    </div>
+  </section>
+
+  <!-- Alışkanlık Kartları Listesi -->
+  <main class="habit-container" id="habit-list">
+    <!-- Dinamik Kartlar JS ile Buraya Gelecek -->
+  </main>
+
+  <!-- Yeni Alışkanlık Ekleme Modalı -->
+  <div id="add-modal" class="modal-overlay hidden">
+    <div class="modal-content glass-card">
+      <div class="modal-header">
+        <h2>💪 Yeni Disiplin Hedefi Ekle</h2>
+        <button id="close-add-modal" class="close-btn">&times;</button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Alışkanlık Adı (Örn: Spor, Kitap Okuma):</label>
+          <input type="text" id="habit-title-input" placeholder="Hedefini yaz..." class="custom-input">
+        </div>
+
+        <div class="form-group">
+          <label>Kategori & İkon:</label>
+          <select id="habit-icon-select" class="custom-input">
+            <option value="📚">📚 Kitap / Okuma</option>
+            <option value="🏋️‍♂️">🏋️‍♂️ Spor / Egzersiz</option>
+            <option value="💧">💧 Su İçme</option>
+            <option value="💻">💻 Yazılım / Çalışma</option>
+            <option value="🧘">🧘 Meditasyon / Odak</option>
+            <option value="🎯">🎯 Özel Hedef</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Günlük Hedef Miktarı (Örn: 20 Sayfa / 30 Dk):</label>
+          <input type="text" id="habit-target-input" placeholder="Örn: 20 Sayfa" class="custom-input">
+        </div>
+
+        <div class="form-group">
+          <label>Hedef Saati (Hatırlatma):</label>
+          <input type="time" id="habit-time-input" class="custom-input">
+        </div>
+      </div>
+
+      <button id="save-habit-btn" class="primary-btn full-btn">Hedefi Kaydet ve Başlat</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
