@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Habit King • Disiplin Stüdyosu</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#10b981">
 </head>
 <body>
@@ -32,7 +31,7 @@
 
   <!-- Alışkanlık Kartları Listesi -->
   <main class="habit-container" id="habit-list">
-    <!-- Dinamik Kartlar JS ile Buraya Gelecek -->
+    <!-- Dinamik Kartlar JS Tarafından Yüklenecek -->
   </main>
 
   <!-- Yeni Alışkanlık Ekleme Modalı -->
@@ -73,6 +72,20 @@
       </div>
 
       <button id="save-habit-btn" class="primary-btn full-btn">Hedefi Kaydet ve Başlat</button>
+    </div>
+  </div>
+
+  <!-- 🚨 SERT DİSİPLİN UYARI MODALI (SESLİ ALARM) -->
+  <div id="alarm-modal" class="modal-overlay hidden">
+    <div class="modal-content glass-card alarm-card">
+      <div class="alarm-header">
+        <span class="alarm-icon">⚠️</span>
+        <h2>BAHANELERİ BIRAK!</h2>
+      </div>
+      <div class="alarm-body">
+        <p id="alarm-text">Görev vakti geldi! Görevini tamamlamadan bu ekranı kapatma!</p>
+      </div>
+      <button id="dismiss-alarm-btn" class="danger-btn full-btn">TAMAM, ŞİMDİ YAPIYORUM!</button>
     </div>
   </div>
 
