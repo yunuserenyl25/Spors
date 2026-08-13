@@ -2,90 +2,112 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Habit King • Disiplin Stüdyosu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>King Decision Hub • Reels & Roulette</title>
   <link rel="stylesheet" href="style.css">
-  <meta name="theme-color" content="#10b981">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="app-header glass-card">
-    <div class="user-info">
-      <h1 id="user-heading">Kral'ın Disiplin Merkezi</h1>
-      <p class="streak-badge">🔥 Toplam Seri: <span id="total-streak">0</span> Gün</p>
+  <!-- Background Blur Glows -->
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="brand">
+      <i class="fa-solid fa-crown brand-icon"></i>
+      <span>KING<span class="highlight">DECIDE</span></span>
     </div>
-    <button id="open-add-modal" class="primary-btn">+ Yeni Alışkanlık</button>
+
+    <!-- Mode Selector -->
+    <div class="mode-switch">
+      <button id="btn-movies" class="mode-btn active"><i class="fa-solid fa-film"></i> Filmler</button>
+      <button id="btn-games" class="mode-btn"><i class="fa-solid fa-gamepad"></i> Oyunlar</button>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="header-actions">
+      <button id="btn-toggle-view" class="icon-btn" title="Görünüm Değiştir (Reels/Rulet)">
+        <i class="fa-solid fa-sync"></i>
+      </button>
+      <button id="btn-open-watchlist" class="watchlist-toggle-btn">
+        <i class="fa-solid fa-star"></i>
+        <span id="watchlist-count">0</span>
+      </button>
+    </div>
   </header>
 
-  <!-- İlerleme Özeti Barı -->
-  <section class="progress-section glass-card">
-    <div class="progress-info">
-      <span>Bugünkü Tamamlanma Oranı</span>
-      <strong id="progress-percent">%0</strong>
-    </div>
-    <div class="progress-bar-bg">
-      <div class="progress-bar-fill" id="daily-progress-fill"></div>
-    </div>
-  </section>
+  <!-- Filter Drawer / Bar -->
+  <div class="filter-bar">
+    <select id="genre-select" class="custom-select">
+      <option value="">🎭 Tüm Türler</option>
+      <!-- Dinamik Yüklenecek -->
+    </select>
+    
+    <select id="sort-select" class="custom-select">
+      <option value="popularity.desc">🔥 Popülerler</option>
+      <option value="vote_average.desc">⭐ En Yüksek Puanlılar</option>
+      <option value="primary_release_date.desc">✨ Yeni Çıkanlar</option>
+    </select>
+  </div>
 
-  <!-- Alışkanlık Kartları Listesi -->
-  <main class="habit-container" id="habit-list">
-    <!-- Dinamik Kartlar JS Tarafından Yüklenecek -->
+  <!-- Main View 1: REELS / SWIPE MODE -->
+  <main id="reels-view" class="view-container active-view">
+    <div class="card-stack" id="card-stack">
+      <!-- Dinamik Yüklenen Reels Kartı -->
+      <div class="loading-spinner">
+        <i class="fa-solid fa-circle-notch fa-spin"></i>
+        <p>İçerikler Çekiliyor...</p>
+      </div>
+    </div>
+
+    <div class="actions-bar">
+      <button id="btn-skip" class="action-btn skip" title="Pas Geç (Sola Kaydır)"><i class="fa-solid fa-xmark"></i></button>
+      <button id="btn-trailer" class="action-btn trailer" title="Fragmanı İzle"><i class="fa-solid fa-play"></i></button>
+      <button id="btn-star" class="action-btn star" title="İzleneceklere Ekle (Sağa Kaydır)"><i class="fa-solid fa-star"></i></button>
+    </div>
   </main>
 
-  <!-- Yeni Alışkanlık Ekleme Modalı -->
-  <div id="add-modal" class="modal-overlay hidden">
-    <div class="modal-content glass-card">
-      <div class="modal-header">
-        <h2>💪 Yeni Disiplin Hedefi Ekle</h2>
-        <button id="close-add-modal" class="close-btn">&times;</button>
-      </div>
-      
-      <div class="modal-body">
-        <div class="form-group">
-          <label>Alışkanlık Adı (Örn: Spor, Kitap Okuma):</label>
-          <input type="text" id="habit-title-input" placeholder="Hedefini yaz..." class="custom-input">
-        </div>
-
-        <div class="form-group">
-          <label>Kategori & İkon:</label>
-          <select id="habit-icon-select" class="custom-input">
-            <option value="📚">📚 Kitap / Okuma</option>
-            <option value="🏋️‍♂️">🏋️‍♂️ Spor / Egzersiz</option>
-            <option value="💧">💧 Su İçme</option>
-            <option value="💻">💻 Yazılım / Çalışma</option>
-            <option value="🧘">🧘 Meditasyon / Odak</option>
-            <option value="🎯">🎯 Özel Hedef</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label>Günlük Hedef Miktarı (Örn: 20 Sayfa / 30 Dk):</label>
-          <input type="text" id="habit-target-input" placeholder="Örn: 20 Sayfa" class="custom-input">
-        </div>
-
-        <div class="form-group">
-          <label>Hedef Saati (Hatırlatma):</label>
-          <input type="time" id="habit-time-input" class="custom-input">
-        </div>
+  <!-- Main View 2: RULET / ÇARK MODE -->
+  <main id="roulette-view" class="view-container hidden-view">
+    <div class="roulette-box glass-card">
+      <div class="roulette-header">
+        <h2>🎲 Kararsızlık Çözücü Çark</h2>
+        <p>Kriterlerine uyan 200+ popüler içerik arasından şansına ne çıkacak?</p>
       </div>
 
-      <button id="save-habit-btn" class="primary-btn full-btn">Hedefi Kaydet ve Başlat</button>
+      <div class="wheel-display" id="wheel-display">
+        <i class="fa-solid fa-dice dice-icon"></i>
+        <span id="roulette-result-text">Çarkı Çevirmeye Hazır mısın?</span>
+      </div>
+
+      <button id="btn-spin" class="spin-btn">
+        <i class="fa-solid fa-arrows-rotate"></i> Şansımı Dene!
+      </button>
+    </div>
+  </main>
+
+  <!-- Trailer Pop-Up Modal -->
+  <div id="trailer-modal" class="modal-overlay hidden">
+    <div class="modal-content glass-card trailer-content">
+      <button id="btn-close-trailer" class="close-btn">&times;</button>
+      <div class="video-container">
+        <iframe id="trailer-iframe" src="" frameborder="0" allowfullscreen></iframe>
+      </div>
     </div>
   </div>
 
-  <!-- 🚨 SERT DİSİPLİN UYARI MODALI (SESLİ ALARM) -->
-  <div id="alarm-modal" class="modal-overlay hidden">
-    <div class="modal-content glass-card alarm-card">
-      <div class="alarm-header">
-        <span class="alarm-icon">⚠️</span>
-        <h2>BAHANELERİ BIRAK!</h2>
+  <!-- Watchlist Modal -->
+  <div id="watchlist-modal" class="modal-overlay hidden">
+    <div class="modal-content glass-card">
+      <div class="modal-header">
+        <h2>⭐ Kaydedilen Favorilerim</h2>
+        <button id="btn-close-watchlist" class="close-btn">&times;</button>
       </div>
-      <div class="alarm-body">
-        <p id="alarm-text">Görev vakti geldi! Görevini tamamlamadan bu ekranı kapatma!</p>
+      <div class="modal-body" id="watchlist-items">
+        <!-- Yıldızlanan İçerikler -->
       </div>
-      <button id="dismiss-alarm-btn" class="danger-btn full-btn">TAMAM, ŞİMDİ YAPIYORUM!</button>
     </div>
   </div>
 
